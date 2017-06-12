@@ -9,8 +9,9 @@
 
 (defroutes app-routes
   (GET "/sandwich/:name" [name]
-    (let [sandwich (storage/get-sandwich name)]
-      {:body {"sandwich" sandwich}}))
+    (let [sandwich-results (storage/get-sandwich name)]
+      (when (seq sandwich-results)
+        {:body {"sandwich" (first sandwich-results)}})))
 
   (route/not-found "Not Found"))
 
